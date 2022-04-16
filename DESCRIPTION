@@ -1,0 +1,19 @@
+Package: anRcppSample
+Type: Package
+Title: Using Rcpp in C++ unit tests
+Version: 0.0.0.9000
+Authors@R: person('Zettsu', 'Tatsuya', email = 'zettsu.tatsuya@gmail.com', role = c('cre', 'aut'))
+Description: This is a sample package to use Rcpp in C++ unit tests.
+License: MIT + file LICENSE
+LinkingTo: Rcpp
+Imports:
+    Rcpp
+Encoding: UTF-8
+LazyData: true
+Suggests:
+    testthat (>= 3.0.0),
+    covr,
+    lintr
+Language: en-US
+RoxygenNote: 7.1.2
+Config/testthat/edition: 3
