@@ -27,6 +27,8 @@ jobs:
         run: |
           sudo apt-get install -y build-essential cmake curl git git-core lcov make wget libcairo2-dev libcurl4-openssl-dev libgit2-dev libicu-dev libpng-dev libssl-dev libtbb2 libxml2-dev libxt6 libxt-dev
           sudo apt-get install -y clang clang-tidy
+          mkdir -p tests/build
+          mkdir -p docs
 
       - name: Install R package dependencies
         continue-on-error: true
