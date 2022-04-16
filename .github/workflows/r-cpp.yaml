@@ -57,7 +57,7 @@ jobs:
         run: |
           cmake ..
           make
-          make test; ./test_sample --output-on-failure
+          echo "library(anRcppSample)" | ./test_sample --output-on-failure
 
       - name: Report coverage of C++ code in the R package
         continue-on-error: true
