@@ -17,7 +17,10 @@ COPY ./ "${R_PROJECT_DIR}/"
 WORKDIR "${R_PROJECT_DIR}"
 RUN Rscript -e 'devtools::install(".", dependencies = TRUE)'
 RUN Rscript -e 'library(anRcppSample);devtools::test();print(covr::package_coverage());lintr::lint_package();devtools::document()'
+RUN R CMD build .
+RUN R CMD INSTALL anRcppSample_0.0.0.9000.tar.gz
 
+RUN rm -rf "${R_PROJECT_DIR}/tests/build"
 RUN mkdir -p "${R_PROJECT_DIR}/tests/build"
 WORKDIR "${R_PROJECT_DIR}/tests/build"
 RUN cmake ..

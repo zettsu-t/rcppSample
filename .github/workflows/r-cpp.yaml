@@ -27,13 +27,11 @@ jobs:
         run: |
           sudo apt-get install -y build-essential cmake curl git git-core lcov make wget libcairo2-dev libcurl4-openssl-dev libgit2-dev libicu-dev libpng-dev libssl-dev libtbb2 libxml2-dev libxt6 libxt-dev
           sudo apt-get install -y clang clang-tidy
-          mkdir -p tests/build
-          mkdir -p docs
 
       - name: Install R package dependencies
         continue-on-error: true
         run: |
-          install.packages(c("remotes", "devtools"))
+          install.packages(c("devtools", "Rcpp"))
         shell: Rscript {0}
 
       - name: Testing R code on R REPL
@@ -47,13 +45,19 @@ jobs:
           devtools::document()
         shell: Rscript {0}
 
+      - name: Install this package
+        run: |
+          mkdir -p tests/build
+          RUN R CMD build .
+          RUN R CMD INSTALL anRcppSample_0.0.0.9000.tar.gz
+
       - name: Testing C++ code in the R package
         continue-on-error: true
         working-directory: ./tests/build
         run: |
           cmake ..
           make
-          make test
+          make test; ./test_sample --output-on-failure
 
       - name: Report coverage of C++ code in the R package
         continue-on-error: true
