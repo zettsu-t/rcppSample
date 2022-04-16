@@ -25,6 +25,7 @@ RUN mkdir -p "${R_PROJECT_DIR}/tests/build"
 WORKDIR "${R_PROJECT_DIR}/tests/build"
 RUN cmake ..
 RUN make
+## R_HOME should be set or the R runtime fails
 RUN echo "library(anRcppSample)" | ./test_sample --output-on-failure
 RUN make test
 

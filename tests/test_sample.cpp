@@ -8,8 +8,8 @@
 namespace {
 int custom_r_readconsole(const char *prompt, unsigned char *buf, int buflen, int hist) {
     constexpr int return_code = 1;
-    const std::string r_code{"library(anRcppSample)\n\n"};
-    auto r_code_buf_size = r_code.size() + 1;
+    const std::string r_code{"library(anRcppSample)\n"};
+    const auto r_code_buf_size = r_code.size() + 1;
 
     if (!buf || !buflen) {
         return return_code;
@@ -35,8 +35,8 @@ TEST_F(TestAll, Small) {
 int main(int argc, char *argv[]) {
     char name[] = "test_sample";
     char arg1[] = "--no-save";
-    char *args[]{name, arg1};
-    Rf_initEmbeddedR(sizeof(args) / sizeof(args[0]), args);
+    char *args[]{name, arg1, nullptr};
+    Rf_initEmbeddedR((sizeof(args) / sizeof(args[0])) - 1, args);
     ptr_R_ReadConsole = custom_r_readconsole;
     R_ReplDLLinit();
     R_ReplDLLdo1();

@@ -32,7 +32,7 @@ jobs:
       - name: Install R package dependencies
         continue-on-error: true
         run: |
-          install.packages(c("devtools", "Rcpp"))
+          install.packages(c("remotes", "devtools"))
         shell: Rscript {0}
 
       - name: Testing R code on R REPL
