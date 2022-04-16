@@ -36,7 +36,6 @@ jobs:
 
       - name: Testing R code on R REPL
         continue-on-error: true
-        working-directory: ./r_proj/rCppSample
         run: |
           devtools::install(".", dependencies = TRUE)
           library(anRcppSample)
@@ -48,7 +47,7 @@ jobs:
 
       - name: Testing C++ code in the R package
         continue-on-error: true
-        working-directory: ./r_proj/rCppSample/tests/build
+        working-directory: ./tests/build
         run: |
           cmake ..
           make
@@ -56,7 +55,7 @@ jobs:
 
       - name: Report coverage of C++ code in the R package
         continue-on-error: true
-        working-directory: ./r_proj/rCppSample/tests/build/CMakeFiles/test_sample.dir
+        working-directory: ./tests/build/CMakeFiles/test_sample.dir
         run: |
           lcov -d . -c -o coverage.info
           lcov -r coverage.info "/usr/*" "*/googletest/*" "/opt/boost*" -o coverageFiltered.info
@@ -64,7 +63,6 @@ jobs:
 
       - name: Check C++ code in the R package
         continue-on-error: true
-        working-directory: ./r_proj/rCppSample
         run: |
           echo "-I $(find /usr -name R.h | head -1 | xargs dirname)" "$(Rscript -e 'cat(paste(paste0(" -I ", .libPaths(), "/Rcpp/include"), sep="", collapse=" "))')" > _r_includes
           clang-tidy src/*.cpp tests/*.cpp -checks=perf\* -- -I src $(cat _r_includes) -I tests/build/googletest-src/googletest/include || echo "Non-zero exit code"
