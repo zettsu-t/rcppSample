@@ -48,8 +48,8 @@ jobs:
       - name: Install this package
         run: |
           mkdir -p tests/build
-          RUN R CMD build .
-          RUN R CMD INSTALL anRcppSample_0.0.0.9000.tar.gz
+          R CMD build .
+          R CMD INSTALL anRcppSample_0.0.0.9000.tar.gz
 
       - name: Testing C++ code in the R package
         continue-on-error: true
