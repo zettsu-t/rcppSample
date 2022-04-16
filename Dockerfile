@@ -25,8 +25,8 @@ RUN mkdir -p "${R_PROJECT_DIR}/tests/build"
 WORKDIR "${R_PROJECT_DIR}/tests/build"
 RUN cmake ..
 RUN make
-# RUN make test
 RUN echo "library(anRcppSample)" | ./test_sample --output-on-failure
+RUN make test
 
 WORKDIR "${R_PROJECT_DIR}/tests/build/CMakeFiles/test_sample.dir"
 RUN lcov -d . -c -o coverage.info

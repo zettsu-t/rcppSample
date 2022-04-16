@@ -28,7 +28,7 @@ int custom_r_readconsole(const char *prompt, unsigned char *buf, int buflen, int
 class TestAll : public ::testing::Test {};
 TEST_F(TestAll, Small) {
     const Rcpp::NumericVector arg {1.0, 0.5, 0.25};
-    auto actual = sample_sum_cpp(arg);
+    const auto actual = sample_sum_cpp(arg);
     EXPECT_EQ(1.75, actual);
 }
 
